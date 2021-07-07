@@ -66,6 +66,10 @@ $router->get('/admin', [ 'as' => 'admin', function (Request $request) {
 }]);
 
 $router->post('/boxes', function (Request $request) {
+    if (!$request->session()->get('user')) {
+        return redirect()->route('login');
+    }
+
     $serial_no = $request->input('serial_no');
     $address = $request->input('address');
     $location = $request->input('location');
